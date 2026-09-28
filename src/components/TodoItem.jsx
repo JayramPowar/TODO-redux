@@ -1,5 +1,6 @@
 import { Check, Calendar, Edit3, Trash2} from "lucide-react";
-const TodoItem = () => {
+const TodoItem = ({todo,index}) => {
+     
   return (
     <div className={`group p-4 hover:bg-gray-100 transition-all duration-200`}>
       {/* Toggle Button */}

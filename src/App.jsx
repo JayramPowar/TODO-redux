@@ -1,9 +1,11 @@
 import TodoApp from './components/TodoApp.jsx'
+import { Provider } from 'react-redux';
+import { store } from './store/store.js';
 const App = () => {
   return (
-    <div>
+    <Provider store={store}>
       <TodoApp />
-    </div>
+    </Provider>
   )
 }
 
