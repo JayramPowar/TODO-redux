@@ -1,4 +1,5 @@
 import { Check, Calendar, Edit3, Trash2} from "lucide-react";
+import { useState } from "react";
 const TodoItem = ({todo,index}) => {
     const [isEditing, setIsEditing] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);

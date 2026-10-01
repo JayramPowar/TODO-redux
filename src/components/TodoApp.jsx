@@ -2,7 +2,7 @@ import { CheckCircle2, Plus, Trash2, Circle, Filter } from "lucide-react";
 import TodoFilter from "./TodoFilter";
 import TodoForm from "./TodoForm";
 import TodoItem from "./TodoItem";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   selectFilter,
   selectFilteredTodos,
@@ -10,13 +10,23 @@ import {
   selectTodos,
   selectTodoStats,
 } from "../store/selectors";
+import { setIsAddingTodo } from "../store/todoSlice";
 // import TodoItem from './TodoItem';
 const TodoApp = () => {
+  const dispatch = useDispatch();
+
   const todos = useSelector(selectTodos);
   const filteredTodos = useSelector(selectFilteredTodos);
   const stats = useSelector(selectTodoStats);
   const filter = useSelector(selectFilter);
   const isAddingTodo = useSelector(selectIsAddingTodo);
+
+  console.log(todos);
+  
+
+  const handleAddTodo = () => {
+    dispatch(setIsAddingTodo(true));
+  }
 
   return (
     <div className="min-h-screen bg-linear-to-br from-gray-100 via-gray-200 to-gray-300 py-8 px-4">
@@ -27,7 +37,7 @@ const TodoApp = () => {
           <p className="text-gray-600">Organize your tasks efficiently</p>
         </div>
         {/* Stats Card */}
-        <div className="bg-white/90 backdrop-blur-sm shadow-lg rounded-2xl p-6 mb-8 border border-gray-200">
+        {stats.total >0 && (<div className="bg-white/90 backdrop-blur-sm shadow-lg rounded-2xl p-6 mb-8 border border-gray-200">
           <div className="flex justify-between items-center mb-4">
             <h2>Progress Overview</h2>
             <div className="text-2xl font-bold text-green-700">
@@ -69,14 +79,14 @@ const TodoApp = () => {
               <div className="text-sm text-gray-500">Completed</div>
             </div>
           </div>
-        </div>
+        </div>)}
 
         {/* Main TODO container */}
         <div className="bg-white/90 backdrop-blur-sm shadow-lg rounded-b-2xl border border-gray-300 overflow-hidden">
           {/* Action Bar */}
           <div className="p-6 border-b border-gray-300 ">
             <div className="flex items-center justify-between mb-4">
-              <button className="flex items-center gap-3 bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300 font-medium cursor-pointer">
+              <button className="flex items-center gap-3 bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300 font-medium cursor-pointer" onClick={handleAddTodo}>
                 <Plus size={20} /> Add your task
               </button>
 
@@ -107,7 +117,7 @@ const TodoApp = () => {
           {/* TODO Form */}
           {isAddingTodo && (
             <div className="p-6 border-b border-gray-300 bg-gray-100">
-              <TodoForm />
+              <TodoForm  />
             </div>
           )}
 
