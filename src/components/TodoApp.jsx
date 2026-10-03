@@ -150,9 +150,9 @@ const TodoApp = () => {
               </div>
             ) : (
               <div className="divide-y divide-gray-300"> 
-                {filteredTodos.map((todo,index) => (
-                  <TodoItem key={todo.id} todo={todo} index={index}/>
-                ))}
+                {filteredTodos.map((todo,index) => {
+                  return <TodoItem key={todo.id} todo={todo} index={index}/>
+                })}
               </div>
             )}
           </div>
