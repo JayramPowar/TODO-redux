@@ -25,8 +25,29 @@ const todoSlice = createSlice({
       state.items.unshift(newTodo);
       state.isAddingTodo = false;
     },
+
+    //toggle task checkbox
+    toggleTodo:(state,action) => {
+      const todo = state.items.find((todo) => todo.id === action.payload);
+      if(todo){
+        todo.completed = !todo.completed;
+        todo.updatedAt = new Date().toISOString();
+      }
+    },
+
+    deleteTodo:(state,action) => {
+      state.items = state.items.filter((todo) => todo.id !== action.payload);
+    },
+
+    updateTodo :(state,action) => {
+      const { id, text } = action.payload;
+      const todo = state.items.find((todo) => todo.id === id);
+      if(todo){
+        Object.assign(todo,text, { text, updatedAt: new Date().toISOString() });
+      }
+    },
   },
 });
 
-export const { setIsAddingTodo,addTodo } = todoSlice.actions;
+export const { setIsAddingTodo,addTodo,toggleTodo, deleteTodo,updateTodo } = todoSlice.actions;
 export default todoSlice.reducer;
