@@ -46,8 +46,25 @@ const todoSlice = createSlice({
         Object.assign(todo,text, { text, updatedAt: new Date().toISOString() });
       }
     },
+
+    setFilter :(state,action) =>{
+      state.filter = action.payload;
+
+    },
+
+    markAllCompleted:(state) => {
+      const hasIncomplete = state.items.some((todo) => !todo.completed);
+      state.items.forEach((todo) => {
+        todo.completed = hasIncomplete;
+        todo.updatedAt = new Date().toISOString();
+      })
+    },
+
+    clearCompleted:(state) => {
+      state.items = state.items.filter((todo) => !todo.completed);
+    }
   },
 });
 
-export const { setIsAddingTodo,addTodo,toggleTodo, deleteTodo,updateTodo } = todoSlice.actions;
+export const { setIsAddingTodo,addTodo,toggleTodo, deleteTodo,updateTodo,setFilter, markAllCompleted, clearCompleted } = todoSlice.actions;
 export default todoSlice.reducer;
